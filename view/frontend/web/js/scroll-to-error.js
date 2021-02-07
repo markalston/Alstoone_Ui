@@ -34,7 +34,35 @@ require(['jquery', 'domReady!'], function($){
 		}, 500);
 	    } else {
 		console.log('I did not find an error');
+		if($('.message-success:visible:first').offset() !== undefined) {
+	    	    console.log('think I found a success message');
+		    console.log($('.message-success:visible:first').offset());
+		    
+		    
+		    // I want to scroll the div with the error into the middle of the screen.
+		    // So there is some math to do.
+		    
+		    var elOffset = $('.message-success:visible:first').parent().offset().top;
+		    var elHeight = $('.message-success:visible:first').parent().height();
+		    var windowHeight = $(window).innerHeight();
+		    var offset;
+		    
+		    if (elHeight < windowHeight) {
+			offset = elOffset - ((windowHeight / 2) - (elHeight / 2));
+		    }
+		    else {
+			offset = elOffset;
+		    }
+		    console.log(offset);
+		    
+		    $('html, body').animate({
+			scrollTop: offset
+		    }, 500);
+		} else {
+		    console.log('I did not find a success message');
+		}
 	    }
+		
 	})
     });
 });
